@@ -1,3 +1,12 @@
 {
-  "welcome": "Bienvenido al Chat del Lector de Documentos"
+  "auth": {
+    "title": "¡Bienvenido(a)!",
+    "description": "OCR-LLM-Chat es una herramienta que permite extraer texto de imágenes y documentos, y luego interactuar con el texto extraído a través de una interfaz de chat. Para comenzar, inicie sesión o cree una cuenta.",
+    "signIn": {
+      "google": "Iniciar sesión con Google",
+      "loading": "Cargando",
+      "success": "Inicio de sesión exitoso",
+      "error": "Error al iniciar sesión"
+    }
+  }
 }
