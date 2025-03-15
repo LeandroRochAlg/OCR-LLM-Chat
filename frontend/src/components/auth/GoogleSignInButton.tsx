@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
+import api from "@/lib/axios";
 import ErrorMessage from "../feedback/ErrorMessage";
 import SuccessMessage from "../feedback/SuccessMessage";
 
@@ -19,6 +21,7 @@ export default function GoogleSignInButton({ translations }: GoogleSignInButtonP
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const router = useRouter();
 
   const handleSignIn = async () => {
     setLoading(true);
@@ -29,8 +32,20 @@ export default function GoogleSignInButton({ translations }: GoogleSignInButtonP
 
       const idToken = await result.user.getIdToken();
 
-      setSuccess(translations.success);
-      setTimeout(() => setSuccess(''), 5000);
+      const response = await api.post('auth/google', { idToken });
+
+      if (response.status === 201) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+
+        router.push('/');
+        
+        setSuccess(translations.success);
+        setTimeout(() => setSuccess(''), 5000);
+      } else {
+        setError(translations.error);
+        setTimeout(() => setError(''), 5000);
+      }
     } catch (error) {
       console.error(error);
       setError(translations.error);
