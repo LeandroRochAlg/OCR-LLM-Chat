@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { languages } from '../i18n/settings';
 import { dir } from 'i18next';
 import "./globals.css";
-import { AuthProvider } from '../contexts/AuthContext';
+import { AuthProvider } from '../../contexts/AuthContext';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
