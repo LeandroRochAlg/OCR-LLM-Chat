@@ -39,7 +39,6 @@ export default function GoogleSignInButton({ translations }: GoogleSignInButtonP
         const user = response.data.user as User;
 
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(user));
 
         login(user);
 
