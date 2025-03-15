@@ -28,7 +28,11 @@ export class AuthService {
         });
 
         return {
-          user,
+          user: {
+            avatar: user.avatar,
+            email: user.email,
+            name: user.name,
+          },
           token,
         };
     } catch (error) {
