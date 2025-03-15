@@ -12,8 +12,12 @@ async function bootstrap() {
     forbidNonWhitelisted: true, // Reject requests with unexpected properties
   }));
   
-  // Enable CORS
-  app.enableCors();
+  // Enable CORS with specific configurations
+  app.enableCors({
+    origin: process.env.ORIGIN_URL || 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   
   // Global prefix for all API routes
   app.setGlobalPrefix('api');
