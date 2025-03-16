@@ -1,19 +1,19 @@
-import { useTranslation } from "@/app/i18n/server";
+import { getTranslation } from "@/app/i18n/server";
 import { Metadata } from "next";
 import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
 
-export async function generateMetadata({ params }: { params: { lng: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
   const { lng } = await params;
-  const { t } = await useTranslation(lng);
+  const { t } = await getTranslation(lng);
   return {
     title: t('auth.title'),
     description: t('auth.description'),
   };
 }
 
-export default async function Auth({ params }: { params: { lng: string } }) {
+export default async function Auth({ params }: { params: Promise<{ lng: string }> }) {
   const { lng } = await params;
-  const { t } = await useTranslation(lng);
+  const { t } = await getTranslation(lng);
 
   const buttonTranslations = {
     google: t('auth.signIn.google'),

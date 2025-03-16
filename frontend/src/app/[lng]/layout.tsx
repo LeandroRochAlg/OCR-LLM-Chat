@@ -4,7 +4,7 @@ import { dir } from 'i18next';
 import "./globals.css";
 import { AuthProvider } from '../../contexts/AuthContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
-import { useTranslation } from '../i18n/server';
+import { getTranslation } from '../i18n/server';
 import UserPreferences from '@/components/sidebar/UserPreferences';
 
 export async function generateStaticParams() {
@@ -16,10 +16,10 @@ export default async function RootLayout({
   params
 }: {
   children: ReactNode;
-  params: { lng: string };
+  params: Promise<{ lng: string }>;
 }) {
   const { lng } = await params;
-  const { t } = await useTranslation(lng);
+  const { t } = await getTranslation(lng);
 
   const preferencesTranslations = {
     title: t('sidebar.preferences.title'),
