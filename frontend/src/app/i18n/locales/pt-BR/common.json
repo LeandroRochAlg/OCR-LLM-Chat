@@ -8,5 +8,14 @@
       "success": "Login bem-sucedido",
       "error": "Falha no login"
     }
+  },
+  "sidebar": {
+    "preferences": {
+      "title": "Ajustes",
+      "theme": "Tema",
+      "language": "Idioma",
+      "logout": "Sair",
+      "login": "Entrar Agora"
+    }
   }
 }

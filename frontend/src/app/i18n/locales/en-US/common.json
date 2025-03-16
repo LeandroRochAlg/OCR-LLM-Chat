@@ -8,5 +8,14 @@
       "success": "Sign in successful",
       "error": "Sign in failed"
     }
+  },
+  "sidebar": {
+    "preferences": {
+      "title": "Preferences",
+      "theme": "Theme",
+      "language": "Language",
+      "logout": "Logout",
+      "login": "Sign In Now"
+    }
   }
 }

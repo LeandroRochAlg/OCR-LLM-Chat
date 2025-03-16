@@ -8,5 +8,14 @@
       "success": "Inicio de sesión exitoso",
       "error": "Error al iniciar sesión"
     }
+  },
+  "sidebar": {
+    "preferences": {
+      "title": "Preferencias",
+      "theme": "Tema",
+      "language": "Idioma",
+      "logout": "Cerrar sesión",
+      "login": "Iniciar sesión ahora"
+    }
   }
 }
