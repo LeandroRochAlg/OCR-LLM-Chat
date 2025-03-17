@@ -11,10 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
   };
 }
 
-export default async function Home({ params }: { params: Promise<{ lng: string }> }) {
-  const { lng } = await params;
-  const { t } = await getTranslation(lng);
-
+export default async function Home() {
   return (
     <div className="hero bg-base-200 min-h-screen">
       <HomeContent />
