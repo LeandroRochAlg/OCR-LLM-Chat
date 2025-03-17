@@ -14,7 +14,6 @@ export class AuthController {
 
       return this.authService.verifyFirebaseToken(body.idToken);
     } catch (error) {
-      console.log(error);
       throw new UnauthorizedException("Invalid token");
     }
   }
