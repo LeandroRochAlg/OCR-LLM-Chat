@@ -51,6 +51,8 @@ export default function ChatContent() {
   }, [params?.chatId]);
 
   const handleInteract = async () => {
+    if (!message) return;
+
     try {
       setLoadingResponse(true);
 
