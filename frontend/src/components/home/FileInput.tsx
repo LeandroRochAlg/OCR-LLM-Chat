@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import { useParams } from "next/navigation";
+import api from "@/lib/axios";
 
 export default function FileInput() {
   const params = useParams();
@@ -26,7 +27,8 @@ export default function FileInput() {
     formData.append('file', file);
 
     try {
-      console.log(formData);
+      const response = await api.post('/documents/upload', formData);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
       alert('An error occurred');
