@@ -7,6 +7,7 @@ import { MulterModule } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import { extname } from "path";
 import { OcrService } from "src/ocr/ocr.service";
+import { LlmService } from "src/llm/llm.service";
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { OcrService } from "src/ocr/ocr.service";
     }),
   ],
   controllers: [DocumentsController],
-  providers: [DocumentsService, PrismaService, OcrService],
+  providers: [DocumentsService, PrismaService, OcrService, LlmService],
 })
 
 export class DocumentsModule {}
