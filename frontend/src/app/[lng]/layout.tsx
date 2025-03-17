@@ -36,7 +36,7 @@ export default async function RootLayout({
         <AuthProvider>
           <ThemeProvider>
             <div className="drawer">
-              <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+              <input id="my-drawer" type="checkbox" className="drawer-toggle fixed" />
               <div className="drawer-content">
                 <label htmlFor="my-drawer" className="btn btn-primary drawer-button absolute top-5 left-5">
                   <svg

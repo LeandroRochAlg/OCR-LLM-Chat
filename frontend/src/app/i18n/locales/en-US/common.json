@@ -29,5 +29,15 @@
       "uploading": "Uploading file and generating response...",
       "error": "Error uploading file"
     }
+  },
+  "chat": {
+    "title": "Chat",
+    "description": "Welcome to the chat interface! Here you can interact with the extracted text from the uploaded file. Ask questions or discuss with our AI.",
+    "input": {
+      "placeholder": "Ask about the file here...",
+      "button": "Send"
+    },
+    "loading": "Loading chat messages...",
+    "errorLoading": "An error occurred while loading chat messages"
   }
 }

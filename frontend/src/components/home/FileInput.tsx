@@ -3,11 +3,12 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import ErrorMessage from "../feedback/ErrorMessage";
 
 export default function FileInput() {
+  const router = useRouter();
   const params = useParams();
   const { t } = useTranslation(params?.lng as string);
   const { user } = useAuth();
@@ -36,7 +37,9 @@ export default function FileInput() {
 
     try {
       const response = await api.post('/documents/upload', formData);
-      console.log(response.data);
+
+      // Redirect to chat page
+      router.push(`${params?.lng}/chat/${response.data.chatId}`);
     } catch (error) {
       console.error(error);
 
