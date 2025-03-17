@@ -16,7 +16,8 @@
       "language": "Language",
       "logout": "Logout",
       "login": "Sign In Now"
-    }
+    },
+    "newChat": "Create a new chat"
   },
   "home": {
     "title": "Home",
