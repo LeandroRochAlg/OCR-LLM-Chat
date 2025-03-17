@@ -27,4 +27,11 @@ export class DocumentsController {
     const userId = req.user.id;
     return this.documentService.processDocument(file, userId);
   }
+
+  @Get(':chatId')
+  @UseGuards(JwtAuthGuard)
+  async getChat(@Param('chatId') chatId: string, @Req() req) {
+    const userId = req.user.id;
+    return this.documentService.getChat(chatId, userId);
+  }
 }

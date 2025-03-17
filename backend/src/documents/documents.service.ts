@@ -23,8 +23,8 @@ export class DocumentsService {
 
     const document = await this.prisma.document.create({
       data: {
-        title: file.path,
-        url: file.originalname,
+        title: file.originalname,
+        url: file.path,
         chatId: chat.id,
       },
     });
@@ -36,5 +36,27 @@ export class DocumentsService {
       chatId: chat.id,
       llmResponse,
     };
+  }
+
+  async getChat(chatId: string, userId: string) {
+    const chat = await this.prisma.chat.findUnique({
+      where: {
+        id: chatId,
+      },
+      include: {
+        documents: true,
+        interactions: true,
+      },
+    });
+
+    if (!chat) {
+      throw new NotFoundException('Chat not found');
+    }
+
+    if (chat.userId !== userId) {
+      throw new ForbiddenException('You are not allowed to access this chat');
+    }
+
+    return chat;
   }
 }
