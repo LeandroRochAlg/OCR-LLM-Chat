@@ -97,7 +97,7 @@ export default function ChatContent() {
                   <div className="chat-header">
                     {user?.name}
                   </div>
-                  <div key={interaction.id} className="chat-bubble">
+                  <div key={interaction.id} className="chat-bubble chat-bubble-secondary">
                     {interaction.query}
                   </div>
                 </div>
