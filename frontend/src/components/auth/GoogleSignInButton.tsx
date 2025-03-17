@@ -5,6 +5,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { User } from "@/models/user";
 import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import ErrorMessage from "../feedback/ErrorMessage";
 import SuccessMessage from "../feedback/SuccessMessage";
@@ -23,6 +24,7 @@ export default function GoogleSignInButton({ translations }: GoogleSignInButtonP
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
   const { login } = useAuth();
+  const router = useRouter();
 
   const handleSignIn = async () => {
     setLoading(true);
@@ -41,6 +43,8 @@ export default function GoogleSignInButton({ translations }: GoogleSignInButtonP
         localStorage.setItem('token', response.data.token);
 
         login(user);
+
+        router.push('/');
 
         setSuccess(translations.success);
         setTimeout(() => setSuccess(''), 5000);
