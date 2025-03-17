@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { createWorker } from "tesseract.js";
 import * as fs from "fs";
+import * as pdfParse from "pdf-parse";
 
 @Injectable()
 export class OcrService {
@@ -16,7 +17,13 @@ export class OcrService {
 
       return text;
     } else if (fileExtension === "pdf") {
-      console.log("PDF file detected");
+      try {
+        const dataBuffer = fs.readFileSync(filePath);
+        const { text } = await pdfParse(dataBuffer);
+        return text;
+      } catch (error) {
+        throw new Error(`Failed to extract text from PDF: ${error.message}`);
+      }
     }
 
     throw new Error("Unsupported file type");
