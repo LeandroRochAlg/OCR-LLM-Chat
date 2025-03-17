@@ -38,6 +38,7 @@
       "button": "Send"
     },
     "loading": "Loading chat messages...",
-    "errorLoading": "An error occurred while loading chat messages"
+    "errorLoading": "An error occurred while loading chat messages",
+    "errorInteracting": "An error occurred while interacting with the chat"
   }
 }

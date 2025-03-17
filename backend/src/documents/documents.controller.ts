@@ -34,4 +34,10 @@ export class DocumentsController {
     const userId = req.user.id;
     return this.documentService.getChat(chatId, userId);
   }
+
+  @Post('interact')
+  @UseGuards(JwtAuthGuard)
+  async interact(@Body() body, @Req() _req) {
+    return this.documentService.interact(body);
+  }
 }

@@ -59,4 +59,10 @@ export class DocumentsService {
 
     return chat;
   }
+
+  async interact(body) {
+    const { chatId, message } = body;
+
+    return this.llmService.interact(chatId, message);
+  }
 }
