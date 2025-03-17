@@ -24,7 +24,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response.status === 401 && error.response.data.message === 'Invalid token') {
       localStorage.removeItem('token');
-      window.location.href = '/auth/';
+      // window.location.href = '/auth/';
     }
 
     return Promise.reject(error);
