@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body className='antialiased'>
+      <body className='antialiased bg-base-200'>
         <AuthProvider>
           <ThemeProvider>
             <div className="drawer">
