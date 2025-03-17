@@ -25,7 +25,9 @@
       "title": "Upload File",
       "getStarted": "Get started by uploading a file using the field below.",
       "description": "Upload an image or document file to extract text from it and ask questions or discuss with our AI.",
-      "button": "Upload file and start chatting"
+      "button": "Upload file and start chatting",
+      "uploading": "Uploading file and generating response...",
+      "error": "Error uploading file"
     }
   }
 }
