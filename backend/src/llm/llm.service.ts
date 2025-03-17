@@ -59,11 +59,15 @@ export class LlmService {
   async interact(chatId: string, message: string) {
     const chat = await this.prisma.chat.findUnique({
       where: {
-        id: chatId,
+      id: chatId,
       },
       include: {
-        interactions: true,
-      }
+        interactions: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
+      },
     });
 
     if (!chat) {

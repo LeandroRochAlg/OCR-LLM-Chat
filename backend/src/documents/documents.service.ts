@@ -45,7 +45,11 @@ export class DocumentsService {
       },
       include: {
         documents: true,
-        interactions: true,
+        interactions: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
       },
     });
 
