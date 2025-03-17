@@ -25,11 +25,11 @@ export class LlmService {
 
     // Ask the model to explain or provide context to the document given
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'You are an assistant that helps extract information from documents. Respond only based on the provided text. Give a summary of the document. Provide context to the document. Answer in the language of the document.',
+          content: 'You are an assistant that helps extract information from documents. Respond only based on the provided text. Give a summary of the document. Provide context to the document. Answer in the language of the document, if you cant figure a language, answer in english.',
         },
         {
           role: 'user',
