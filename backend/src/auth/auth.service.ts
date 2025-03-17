@@ -18,8 +18,6 @@ export class AuthService {
         .auth()
         .verifyIdToken(idToken);
 
-        console.log(decodedToken);
-
         // Search for the user in the database or create a new one
         const user = await this.findOrCreateUser(decodedToken);
 
@@ -38,8 +36,7 @@ export class AuthService {
           token,
         };
     } catch (error) {
-      console.log(error);
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException('Invalid firebase token');
     }
   }
 

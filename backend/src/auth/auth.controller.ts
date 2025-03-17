@@ -9,12 +9,12 @@ export class AuthController {
   async verifyFirebaseToken(@Body() body: { idToken: string }) {
     try {
       if (!body.idToken) {
-        throw new UnauthorizedException("Invalid token");
+        throw new UnauthorizedException("Invalid firebase token");
       }
 
       return this.authService.verifyFirebaseToken(body.idToken);
     } catch (error) {
-      throw new UnauthorizedException("Invalid token");
+      throw new UnauthorizedException("Invalid firebase token");
     }
   }
 }
