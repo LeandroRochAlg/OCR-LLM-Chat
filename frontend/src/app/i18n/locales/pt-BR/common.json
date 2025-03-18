@@ -16,6 +16,30 @@
       "language": "Idioma",
       "logout": "Sair",
       "login": "Entrar Agora"
+    },
+    "newChat": "Criar um novo chat"
+    },
+    "home": {
+    "title": "Início",
+    "description": "Bem-vindo ao OCR-LLM-Chat! Esta é uma ferramenta que permite extrair texto de imagens e documentos, e então interagir com o texto extraído através de uma interface de chat. Para começar, faça login ou crie uma conta.",
+    "upload": {
+      "title": "Enviar Arquivo",
+      "getStarted": "Comece enviando um arquivo usando o campo abaixo.",
+      "description": "Envie uma imagem ou arquivo de documento para extrair texto dele e fazer perguntas ou discutir com nossa IA.",
+      "button": "Enviar arquivo e começar a conversar",
+      "uploading": "Enviando arquivo e gerando resposta...",
+      "error": "Erro ao enviar arquivo"
     }
-  }
+    },
+    "chat": {
+    "title": "Chat",
+    "description": "Bem-vindo à interface de chat! Aqui você pode interagir com o texto extraído do arquivo enviado. Faça perguntas ou discuta com nossa IA.",
+    "input": {
+      "placeholder": "Pergunte sobre o arquivo aqui...",
+      "button": "Enviar"
+    },
+    "loading": "Carregando mensagens do chat...",
+    "errorLoading": "Ocorreu um erro ao carregar as mensagens do chat",
+    "errorInteracting": "Ocorreu um erro ao interagir com o chat"
+    }
 }
