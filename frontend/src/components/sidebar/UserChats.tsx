@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import api from "@/lib/axios";
 import Link from "next/link";
@@ -18,6 +18,7 @@ export default function UserChats() {
   const [loadingChats, setLoadingChats] = useState(true);
   const { user, loading } = useAuth();
   const lng = useParams().lng;
+  const pathname = usePathname();
   
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +39,7 @@ export default function UserChats() {
     };
 
     fetchData();
-  }, [user]);
+  }, [user, pathname]);
 
   if (!user && !loading) {
     return null;
