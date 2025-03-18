@@ -49,6 +49,13 @@ export class DocumentsController {
     return this.documentService.downloadDocument(chatId, userId, res);
   }
 
+  @Get('downloadDocumentAndInteractions/:chatId')
+  @UseGuards(JwtAuthGuard)
+  async downloadDocumentAndInteractions(@Param('chatId') chatId: string, @Req() req, @Res() res) {
+    const userId = req.user.id;
+    return this.documentService.downloadDocumentAndInteractions(chatId, userId, res);
+  }
+
   @Post('interact')
   @UseGuards(JwtAuthGuard)
   async interact(@Body() body, @Req() _req) {

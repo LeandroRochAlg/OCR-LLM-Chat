@@ -40,6 +40,8 @@
     },
     "loading": "Cargando mensajes del chat...",
     "errorLoading": "Ocurrió un error al cargar los mensajes del chat",
-    "errorInteracting": "Ocurrió un error al interactuar con el chat"
+    "errorInteracting": "Ocurrió un error al interactuar con el chat",
+    "errorDownloading": "Ocurrió un error al descargar el archivo",
+    "downloadInteractions": "Descargar interacciones del chat"
   }
 }

@@ -98,6 +98,28 @@ export default function ChatContent() {
       link.setAttribute('download', chatInfo?.documents[0].title);
       document.body.appendChild(link);
       link.click();
+      setError('');
+    } catch (error) {
+      console.error(error);
+      setError(t('chat.errorDownloading'));
+    }
+  };
+
+  const handleDownloadInteractions = async () => {
+    if (!chatInfo?.documents[0]) return;
+
+    try {
+      const result = await api.get('/documents/downloadDocumentAndInteractions/' + params?.chatId, {
+        responseType: 'blob',
+      });
+
+      const url = window.URL.createObjectURL(new Blob([result.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'interactions.pdf');
+      document.body.appendChild(link);
+      link.click();
+      setError('');
     } catch (error) {
       console.error(error);
       setError(t('chat.errorDownloading'));
@@ -113,9 +135,12 @@ export default function ChatContent() {
               <div className="chat-header">
                 {user?.name}
               </div>
-              <div className="chat-bubble chat-bubble-secondary">
+              <div className="chat-bubble chat-bubble-secondary flex flex-col gap-2">
                 <button className="btn" onClick={handleDownload}>
                   {chatInfo.documents[0].title.split('.')[0]} <div className="badge badge-sm badge-primary">{chatInfo.documents[0].title.split('.')[1]}</div>
+                </button>
+                <button className="btn btn-outline btn-primary" onClick={handleDownloadInteractions}>
+                  {t('chat.downloadInteractions')} <div className="badge badge-sm badge-primary">pdf</div>
                 </button>
               </div>
             </div>
