@@ -7,6 +7,8 @@ import { useParams, useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import ErrorMessage from "../feedback/ErrorMessage";
 import { ChatInfo } from "@/models/chatInfo";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function ChatContent() {
   const router = useRouter();
@@ -150,7 +152,7 @@ export default function ChatContent() {
                 LLM
               </div>
               <div className="chat-bubble">
-                {chatInfo.interactions[0].response}
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{chatInfo.interactions[0].response}</ReactMarkdown>
               </div>
             </div>
 
@@ -170,7 +172,7 @@ export default function ChatContent() {
                     LLM
                   </div>
                   <div className="chat-bubble">
-                    {interaction.response}
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{interaction.response}</ReactMarkdown>
                   </div>
                 </div>
               </div>
