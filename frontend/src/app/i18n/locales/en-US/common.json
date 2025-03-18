@@ -16,6 +16,32 @@
       "language": "Language",
       "logout": "Logout",
       "login": "Sign In Now"
+    },
+    "newChat": "Create a new chat"
+  },
+  "home": {
+    "title": "Home",
+    "description": "Welcome to the OCR-LLM-Chat! This is a tool that allows you to extract text from images and documents, and then interact with the extracted text through a chat interface. To get started, please sign in or create an account.",
+    "upload": {
+      "title": "Upload File",
+      "getStarted": "Get started by uploading a file using the field below.",
+      "description": "Upload an image or document file to extract text from it and ask questions or discuss with our AI.",
+      "button": "Upload file and start chatting",
+      "uploading": "Uploading file and generating response...",
+      "error": "Error uploading file"
     }
+  },
+  "chat": {
+    "title": "Chat",
+    "description": "Welcome to the chat interface! Here you can interact with the extracted text from the uploaded file. Ask questions or discuss with our AI.",
+    "input": {
+      "placeholder": "Ask about the file here...",
+      "button": "Send"
+    },
+    "loading": "Loading chat messages...",
+    "errorLoading": "An error occurred while loading chat messages",
+    "errorInteracting": "An error occurred while interacting with the chat",
+    "errorDownloading": "An error occurred while downloading the file",
+    "downloadInteractions": "Download chat interactions"
   }
 }

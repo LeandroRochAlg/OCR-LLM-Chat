@@ -6,6 +6,8 @@ import { AuthProvider } from '../../contexts/AuthContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { getTranslation } from '../i18n/server';
 import UserPreferences from '@/components/sidebar/UserPreferences';
+import UserChats from '@/components/sidebar/UserChats';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -32,11 +34,11 @@ export default async function RootLayout({
 
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body className='antialiased'>
+      <body className='antialiased bg-base-200'>
         <AuthProvider>
           <ThemeProvider>
             <div className="drawer">
-              <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+              <input id="my-drawer" type="checkbox" className="drawer-toggle fixed" />
               <div className="drawer-content">
                 <label htmlFor="my-drawer" className="btn btn-primary drawer-button absolute top-5 left-5">
                   <svg
@@ -58,6 +60,12 @@ export default async function RootLayout({
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                 <div className='menu bg-base-200 text-base-content min-h-full w-80 p-5'>
                   <h2 className='text-xl text-bold'>OCR-LLM-Chat</h2>
+
+                  <button className='text-lg my-4 text-left btn btn-ghost'>
+                    <Link href={`/${lng}/`}>{t('sidebar.newChat')}</Link>
+                  </button>
+
+                  <UserChats />
 
                   <div className='fixed bottom-0 left-0 w-full'>
                     <UserPreferences translations={preferencesTranslations} />

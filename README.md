@@ -2,6 +2,8 @@
 
 A full-stack application that extracts text from uploaded documents using OCR and allows users to interact with the content through LLM-powered explanations.
 
+[Visit now!](https://ocr-llm-chat.vercel.app)
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -30,7 +32,7 @@ This project was developed as a solution to the Paggo OCR Challenge. It provides
 
 ## Features
 
-- **User Authentication**: Secure login and registration
+- **User Authentication**: Secure login and registration using Firebase
 - **Document Upload**: Upload invoice images and other documents
 - **OCR Processing**: Extract text from uploaded documents
 - **LLM Integration**: Ask questions about the document content and receive AI-powered explanations
@@ -41,19 +43,22 @@ This project was developed as a solution to the Paggo OCR Challenge. It provides
 ## Tech Stack
 
 ### Frontend
+
 - Next.js (React framework)
 - Tailwind CSS
 - Axios for API requests
 - React Hook Form for form handling
-- Zod for validation
+- Firebase Authentication
 
 ### Backend
+
 - NestJS framework
 - Prisma ORM for database interactions
 - PostgreSQL database
 - Tesseract.js for OCR
 - OpenAI API for LLM integration
 - JWT for authentication
+- Firebase Admin SDK
 
 ## Project Structure
 
@@ -64,8 +69,6 @@ ocr-llm-challenge/
 │   ├── src/
 │   │   ├── auth/              # Authentication module
 │   │   ├── documents/         # Document handling module
-│   │   ├── interactions/      # LLM interactions module
-│   │   ├── users/             # User management module
 │   │   ├── app.module.ts      # Main application module
 │   │   └── main.ts            # Application entry point
 │   ├── .env                   # Environment variables
@@ -76,11 +79,9 @@ ocr-llm-challenge/
 │   ├── src/
 │   │   ├── app/               # Next.js app directory
 │   │   ├── components/        # Reusable UI components
-│   │   ├── hooks/             # Custom React hooks
 │   │   ├── lib/               # Utility functions
-│   │   ├── pages/             # Application pages (if using Pages Router)
-│   │   └── styles/            # Global styles
-│   ├── .env.local             # Frontend environment variables
+│   │   └── models/            # Utility models
+│   ├── .env                   # Frontend environment variables
 │   └── package.json           # Frontend dependencies
 │
 ├── .gitignore                 # Git ignore file
@@ -94,17 +95,20 @@ ocr-llm-challenge/
 - Node.js (v16 or higher)
 - npm or yarn
 - PostgreSQL database
+- Firebase account
 - OpenAI API key
 
 ### Backend Setup
 
 1. Clone the repository:
+
    ```bash
-   git clone https://github.com/yourusername/ocr-llm-challenge.git
+   git clone https://github.com/LeandroRochAlg/OCR-LLM-Chat.git
    cd ocr-llm-challenge/backend
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -112,23 +116,28 @@ ocr-llm-challenge/
 3. Set up environment variables (see [Environment Variables](#environment-variables) section).
 
 4. Set up the database:
+
    ```bash
-   npx prisma migrate dev --name init
+   npx prisma generate
+   npx prisma db push
    ```
 
 5. Start the backend server:
+
    ```bash
-   npm run start:dev
+   nest start --watch
    ```
 
 ### Frontend Setup
 
 1. Navigate to the frontend directory:
+
    ```bash
    cd ../frontend
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -136,6 +145,7 @@ ocr-llm-challenge/
 3. Set up environment variables (see [Environment Variables](#environment-variables) section).
 
 4. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -150,21 +160,46 @@ DATABASE_URL="postgresql://username:password@localhost:5432/ocr_llm_db"
 
 # Authentication
 JWT_SECRET="your-jwt-secret"
-JWT_EXPIRATION="1d"
+PORT=3001
+o="http://localhost:3000"
 
 # OpenAI
 OPENAI_API_KEY="your-openai-api-key"
 
-# Server
-PORT=3001
-FRONTEND_URL="http://localhost:3000"
+# Firebase
+FIREBASE_PROJECT_ID="your-firebase-project-id"
+FIREBASE_CLIENT_EMAIL="your-firebase-client-email"
+FIREBASE_PRIVATE_KEY="your-firebase-private-key"
 ```
 
 #### Frontend (.env.local)
 
 ```
-NEXT_PUBLIC_API_URL="http://localhost:3001"
+NEXT_PUBLIC_FIREBASE_API_KEY="your-firebase-api-key"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="your-firebase-auth-domain"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="your-firebase-project-id"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="your-firebase-storage-bucket"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="your-firebase-messaging-sender-id"
+NEXT_PUBLIC_FIREBASE_APP_ID="your-firebase-app-id"
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID="your-firebase-measurement-id"
+NEXT_PUBLIC_API_URL=http://localhost:3001/api/
 ```
+
+### How to Get Firebase Keys
+
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project or select an existing one
+3. Navigate to **Project Settings > General**
+4. Under **Your apps**, add a new web app if not already created
+5. Copy the Firebase config and paste it into the frontend `.env`
+6. Navigate to **Service accounts** and generate a private key for the backend, then use the values for `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL` and `FIREBASE_PRIVATE_KEY`
+
+### How to Get OpenAI API Key
+
+1. Go to [OpenAI API](https://platform.openai.com/signup/)
+2. Sign up or log in
+3. Navigate to **API Keys**
+4. Generate a new API key and add it to the backend `.env`
 
 ## Usage
 
@@ -174,127 +209,6 @@ NEXT_PUBLIC_API_URL="http://localhost:3001"
 4. View the extracted text and interact with it using the LLM integration.
 5. Ask questions about the document content to get AI-powered explanations.
 6. Download the document with the extracted text and interaction history if needed.
-
-## API Documentation
-
-### Authentication Endpoints
-
-- `POST /auth/register` - Register a new user
-- `POST /auth/login` - Login and receive JWT token
-
-### Document Endpoints
-
-- `POST /documents` - Upload a new document
-- `GET /documents` - Get all documents for the authenticated user
-- `GET /documents/:id` - Get a specific document
-- `DELETE /documents/:id` - Delete a document
-
-### Interaction Endpoints
-
-- `POST /interactions` - Create a new LLM interaction for a document
-- `GET /interactions/document/:id` - Get all interactions for a specific document
-
-## Database Schema
-
-### User
-
-| Field     | Type       | Description                      |
-|-----------|------------|----------------------------------|
-| id        | String     | Primary key, UUID                |
-| email     | String     | User email, unique               |
-| password  | String     | Hashed password                  |
-| name      | String?    | User's name (optional)           |
-| createdAt | DateTime   | Creation timestamp               |
-| updatedAt | DateTime   | Last update timestamp            |
-
-### Document
-
-| Field           | Type       | Description                      |
-|-----------------|------------|----------------------------------|
-| id              | String     | Primary key, UUID                |
-| fileName        | String     | Original file name               |
-| originalFileUrl | String     | URL to the stored original file  |
-| extractedText   | String?    | OCR extracted text               |
-| userId          | String     | Foreign key to User              |
-| createdAt       | DateTime   | Creation timestamp               |
-| updatedAt       | DateTime   | Last update timestamp            |
-
-### Interaction
-
-| Field      | Type       | Description                      |
-|------------|------------|----------------------------------|
-| id         | String     | Primary key, UUID                |
-| query      | String     | User's question                  |
-| response   | String     | LLM's response                   |
-| documentId | String     | Foreign key to Document          |
-| createdAt  | DateTime   | Creation timestamp               |
-| updatedAt  | DateTime   | Last update timestamp            |
-
-## Authentication
-
-The application uses JWT (JSON Web Tokens) for authentication. When a user registers or logs in, they receive a JWT token that is stored in the browser's local storage. This token is included in the Authorization header for all API requests that require authentication.
-
-## OCR Implementation
-
-The OCR functionality is implemented using Tesseract.js, a pure JavaScript port of the Tesseract OCR engine. When a document is uploaded, it goes through the following process:
-
-1. The document is saved to the server or cloud storage.
-2. Tesseract.js processes the image and extracts text.
-3. The extracted text is stored in the database along with the document metadata.
-
-## LLM Integration
-
-The application integrates with OpenAI's GPT models to provide context and explanations for the extracted text. When a user asks a question about a document:
-
-1. The question, along with the document's extracted text, is sent to the LLM.
-2. The LLM generates a response based on the context of the document.
-3. The interaction (question and response) is stored in the database.
-
-## Deployment
-
-### Backend Deployment
-
-The NestJS backend can be deployed to platforms like Heroku, Railway, or Render:
-
-1. Set up the appropriate environment variables on the hosting platform.
-2. Configure the PostgreSQL database connection.
-3. Deploy the application using the platform's deployment tools.
-
-### Frontend Deployment
-
-The Next.js frontend can be deployed to Vercel:
-
-1. Connect your GitHub repository to Vercel.
-2. Set up the environment variables.
-3. Vercel will automatically deploy the application when changes are pushed to the repository.
-
-## Testing
-
-### Backend Tests
-
-To run the backend tests:
-
-```bash
-cd backend
-npm run test
-```
-
-### Frontend Tests
-
-To run the frontend tests:
-
-```bash
-cd frontend
-npm run test
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 

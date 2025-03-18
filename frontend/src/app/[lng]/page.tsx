@@ -1,34 +1,20 @@
-'use client';
+import { getTranslation } from '../i18n/server';
+import { Metadata } from 'next';
+import HomeContent from '@/components/home/HomeContent';
 
-import { useTranslation } from '../i18n/client';
-import { useAuth } from '../../contexts/AuthContext';
-import { useParams } from 'next/navigation';
-import GoogleSignInButton from '@/components/auth/GoogleSignInButton';
-
-export default function Home() {
-  const params = useParams();
-  const lng = params?.lng as string;
-  const { t } = useTranslation(lng);
-  const { user, loading } = useAuth();
-
-  const buttonTranslations = {
-    google: t('auth.signIn.google'),
-    loading: t('auth.signIn.loading'),
-    success: t('auth.signIn.success'),
-    error: t('auth.signIn.error'),
+export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
+  const { lng } = await params;
+  const { t } = await getTranslation(lng);
+  return {
+    title: t('home.title'),
+    description: t('home.description'),
   };
+}
 
+export default async function Home() {
   return (
-    <div>
-      <h1 className='text-3xl font-bold text-center mt-5'>{t('welcome')}</h1>
-      
-      {loading ? (
-        <p>{t('loading')}</p>
-      ) : user ? (
-        <p>{t('email')}: {user.email}</p>
-      ) : (
-        <GoogleSignInButton translations={buttonTranslations}/>
-      )}
+    <div className="hero bg-base-200 min-h-screen">
+      <HomeContent />
     </div>
   );
 }
