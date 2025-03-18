@@ -141,7 +141,7 @@ export default function ChatContent() {
                 <button className="btn" onClick={handleDownload}>
                   {chatInfo.documents[0].title.split('.')[0]} <div className="badge badge-sm badge-primary">{chatInfo.documents[0].title.split('.')[1]}</div>
                 </button>
-                <button className="btn btn-outline btn-primary" onClick={handleDownloadInteractions}>
+                <button className="btn btn-outline btn-black" onClick={handleDownloadInteractions}>
                   {t('chat.downloadInteractions')} <div className="badge badge-sm badge-primary">pdf</div>
                 </button>
               </div>
