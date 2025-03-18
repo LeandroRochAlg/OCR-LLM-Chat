@@ -84,14 +84,52 @@ export default function ChatContent() {
     }
   }
 
+  const handleDownload = async () => {
+    if (!chatInfo?.documents[0]) return;
+
+    try {
+      const result = await api.get('/documents/download/' + params?.chatId, {
+        responseType: 'blob',
+      });
+
+      const url = window.URL.createObjectURL(new Blob([result.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', chatInfo?.documents[0].title);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error(error);
+      setError(t('chat.errorDownloading'));
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="max-w-5xl mx-auto h-[calc(100vh-8rem)] mb-10 mt-0 flex flex-col overflow-auto">
         {chatInfo ? (
           <>        
-            <h3 className="text-xl text-center my-5">{chatInfo.documents[0].title}</h3>
+            <div className="chat chat-end">
+              <div className="chat-header">
+                {user?.name}
+              </div>
+              <div className="chat-bubble chat-bubble-secondary">
+                <button className="btn" onClick={handleDownload}>
+                  {chatInfo.documents[0].title.split('.')[0]} <div className="badge badge-sm badge-primary">{chatInfo.documents[0].title.split('.')[1]}</div>
+                </button>
+              </div>
+            </div>
 
-            {chatInfo.interactions.map((interaction) => (
+            <div className="chat chat-start">
+              <div className="chat-header">
+                LLM
+              </div>
+              <div className="chat-bubble">
+                {chatInfo.interactions[0].response}
+              </div>
+            </div>
+
+            {chatInfo.interactions.slice(1).map((interaction) => (
               <div key={interaction.id}>
                 <div className="chat chat-end">
                   <div className="chat-header">

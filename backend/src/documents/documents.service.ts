@@ -2,6 +2,8 @@ import { Injectable, NotFoundException, ForbiddenException } from "@nestjs/commo
 import { PrismaService } from "src/prisma/prisma.service";
 import { OcrService } from "src/ocr/ocr.service";
 import { LlmService } from "src/llm/llm.service";
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class DocumentsService {
@@ -89,5 +91,39 @@ export class DocumentsService {
     });
 
     return chats;
+  }
+
+  async downloadDocument(chatId: string, userId: string, res) {
+    const chat = await this.prisma.chat.findUnique({
+      where: {
+        id: chatId,
+      },
+      include: {
+        documents: true,
+      },
+    });
+
+    if (!chat) {
+      throw new NotFoundException('Chat not found');
+    }
+
+    if (chat.userId !== userId) {
+      throw new ForbiddenException('You are not allowed to access this chat');
+    }
+
+    const document = chat.documents[0];
+    const filePath = document.url;
+
+    if (!fs.existsSync(filePath)) {
+      throw new NotFoundException('Document not found');
+    }
+
+    const fileName = path.basename(filePath);
+
+    res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+    res.setHeader('Content-Type', 'application/octet-stream');
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, UploadedFile, Body, Get, Param, UseGuards, Req } from "@nestjs/common";
+import { Controller, Post, UseInterceptors, UploadedFile, Body, Get, Param, UseGuards, Req, Res } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { DocumentsService } from "./documents.service";
 import { JwtAuthGuard } from "src/auth/jwt.guard";
@@ -40,6 +40,13 @@ export class DocumentsController {
   async getChat(@Param('chatId') chatId: string, @Req() req) {
     const userId = req.user.id;
     return this.documentService.getChat(chatId, userId);
+  }
+
+  @Get('download/:chatId')
+  @UseGuards(JwtAuthGuard)
+  async downloadDocument(@Param('chatId') chatId: string, @Req() req, @Res() res) {
+    const userId = req.user.id;
+    return this.documentService.downloadDocument(chatId, userId, res);
   }
 
   @Post('interact')
