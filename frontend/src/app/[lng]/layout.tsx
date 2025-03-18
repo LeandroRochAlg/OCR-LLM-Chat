@@ -6,6 +6,7 @@ import { AuthProvider } from '../../contexts/AuthContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { getTranslation } from '../i18n/server';
 import UserPreferences from '@/components/sidebar/UserPreferences';
+import UserChats from '@/components/sidebar/UserChats';
 import Link from 'next/link';
 
 export async function generateStaticParams() {
@@ -63,6 +64,8 @@ export default async function RootLayout({
                   <button className='text-lg my-4 text-left btn btn-ghost'>
                     <Link href={`/${lng}/`}>{t('sidebar.newChat')}</Link>
                   </button>
+
+                  <UserChats />
 
                   <div className='fixed bottom-0 left-0 w-full'>
                     <UserPreferences translations={preferencesTranslations} />

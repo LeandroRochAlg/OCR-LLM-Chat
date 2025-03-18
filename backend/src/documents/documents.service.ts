@@ -69,4 +69,25 @@ export class DocumentsService {
 
     return this.llmService.interact(chatId, message);
   }
+
+  async getChats(userId: string) {
+    const chats = await this.prisma.chat.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+        documents: {
+          select: {
+            title: true,
+          },
+        },
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
+
+    return chats;
+  }
 }

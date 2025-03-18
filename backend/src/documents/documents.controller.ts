@@ -28,6 +28,13 @@ export class DocumentsController {
     return this.documentService.processDocument(file, userId);
   }
 
+  @Get('chats')
+  @UseGuards(JwtAuthGuard)
+  async getChats(@Req() req) {
+    const userId = req.user.id;
+    return this.documentService.getChats(userId);
+  }
+
   @Get(':chatId')
   @UseGuards(JwtAuthGuard)
   async getChat(@Param('chatId') chatId: string, @Req() req) {
